@@ -1,17 +1,12 @@
 #!/bin/bash
 
 #ubuntu üzerine kubectl kurulumu
-
-sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl
-
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-
-sudo apt-get update
-
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+sudo apt update
+sudo apt install -y apt-transport-https
+sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install -y kubectl
 
 sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 
